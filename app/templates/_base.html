@@ -1,0 +1,44 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon_sonic_logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon_sonic_logo.png') }}" type="image/x-icon">
+
+    <link type="text/css" href="{{ url_for('static', filename='css/styles_nav_top_bar.css') }}" rel="stylesheet"/>
+    <link type="text/css" href="{{ url_for('static', filename='css/styles_blog.css') }}" rel="stylesheet"/>
+
+    <link type="text/css" href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet"/>
+
+{% endblock head %}
+
+
+{% if title %}
+    <title>Itea - {{ title }}</title>
+{% else %}
+    <title>Itea</title>
+{% endif %}
+
+
+{% block content %}
+    {% include 'nav/nav-top-bar.html' %}
+
+    <div id="content">
+        <div class="container">
+            <div class="page-header">
+                {% include 'messages.html' %}
+
+                {% block page_content %}{% endblock page_content %}
+            </div>
+        </div>
+    </div>
+
+    {% include 'nav/footer.html' %}
+{% endblock content %}
+
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/get_year.js') }}"></script>
+{% endblock scripts %}
+

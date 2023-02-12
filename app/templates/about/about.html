@@ -1,0 +1,46 @@
+{% extends "_base.html" %}
+
+{% block page_content %}
+
+    <div class="row">
+        <div class="col-md-3"></div>
+
+        <div class="content-section col-md-5">
+
+            <ul>
+                {% if list %}
+                    {% for user in list %}
+                        <article class="media content-section">
+
+                            <ul>
+                                <p>class Role: </p>
+                                <li>name: {{ user.role.name }}</li>
+                            </ul>
+                            <hr>
+                            <ul>
+                                <p>class Profile: </p>
+                                <li>avatar: {{ user.profile.avatar }}</li>
+                                <li>info: {{ user.profile.info }}</li>
+                                <li>city: {{ user.profile.city }}</li>
+                                <li>age: {{ user.profile.age }}</li>
+                            </ul>
+                            <hr>
+                            <ul>
+                                <p>class User: </p>
+                                <li>username: {{ user.username }}</li>
+                                <li>email: {{ user.email }}</li>
+                                <li>password: {{ user.password }}</li>
+                                <li>last_visit: {{ user.last_visit }}</li>
+                                <li>role: {{ user.role }}</li>
+                                <li>profile: {{ user.profile }}</li>
+                            </ul>
+                        </article>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="col-md-3"></div>
+    </div>
+
+{% endblock page_content %}

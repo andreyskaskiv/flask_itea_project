@@ -1,0 +1,38 @@
+{% extends '_base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block page_content %}
+
+        <div class="row">
+        <div class="col-md-3"></div>
+
+
+        <div class="content-section col-md-5">
+            <form action="" method="post">
+                {{ form.csrf_token }}
+                {{ wtf.form_field(form.email) }}
+                {{ wtf.form_field(form.password) }}
+                {{ wtf.form_field(form.remember) }}
+                {{ form.submit }}
+
+                <small class="text-muted ml-2 pull-right">
+                    <a href="#">Forgot Password?</a>
+                </small>
+
+            </form>
+            <hr>
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    Need An Account? <a class="ml-2" href="{{ url_for('auth.register') }}">Sign Up Now</a>
+                </small>
+            </div>
+        </div>
+
+
+        <div class="col-md-3"></div>
+    </div>
+
+{% endblock page_content %}
+
+
+

@@ -1,0 +1,12 @@
+#home_menu_icon_color {color:#D9534F;} /* danger */
+#training_menu_icon_color{color:#337AB7;} /* primary */
+#services_menu_icon_color{color:#5CB85C} /* success */
+#contact_us_menu_icon_color{color:#5BC0DE;} /* info */
+#sign_up_menu_icon_color{color:yellow;}
+#login_menu_icon_color{color:orange;}
+
+
+.navbar-inverse {
+  background-color: rgb(43, 43, 43);
+  border-color: #405976;
+}
