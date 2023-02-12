@@ -9,30 +9,30 @@
 
             <ul>
                 {% if list %}
-                    {% for user in list %}
+                    {% for row in list %}
                         <article class="media content-section">
 
                             <ul>
                                 <p>class Role: </p>
-                                <li>name: {{ user.role.name }}</li>
+                                <li>name: {{ row.role.name }}</li>
                             </ul>
                             <hr>
                             <ul>
                                 <p>class Profile: </p>
-                                <li>avatar: {{ user.profile.avatar }}</li>
-                                <li>info: {{ user.profile.info }}</li>
-                                <li>city: {{ user.profile.city }}</li>
-                                <li>age: {{ user.profile.age }}</li>
+                                <li>avatar: {{ row.profile.avatar }}</li>
+                                <li>info: {{ row.profile.info }}</li>
+                                <li>city: {{ row.profile.city }}</li>
+                                <li>age: {{ row.profile.age }}</li>
                             </ul>
                             <hr>
                             <ul>
                                 <p>class User: </p>
-                                <li>username: {{ user.username }}</li>
-                                <li>email: {{ user.email }}</li>
-                                <li>password: {{ user.password }}</li>
-                                <li>last_visit: {{ user.last_visit }}</li>
-                                <li>role: {{ user.role }}</li>
-                                <li>profile: {{ user.profile }}</li>
+                                <li>username: {{ row.username }}</li>
+                                <li>email: {{ row.email }}</li>
+                                <li>password: {{ row.password }}</li>
+                                <li>last_visit: {{ row.last_visit }}</li>
+                                <li>role: {{ row.role }}</li>
+                                <li>profile: {{ row.profile }}</li>
                             </ul>
                         </article>
                     {% endfor %}

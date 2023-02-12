@@ -1,42 +1,32 @@
 from flask import render_template, current_app
 
-from app.auth.models import Role, Profile, User
+from app.auth.models import Role, Profile, Post, User
 from app.main import main
-
-posts = [
-    {
-        'author': 'Corey Schafer',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'April 20, 2018'
-    },
-    {
-        'author': 'Jane Doe',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'April 21, 2018'
-    }
-]
-
 
 @main.route('/')
 def index():
     db = current_app.config['db']
-    db.create_tables([Role, Profile, User])
+    db.create_tables([Role, Profile, Post, User])
 
     if not Role.select().where(Role.name == 'user').first():
         Role(name='user').save()
 
+    query = Post.select()
+    for row in query:
+        print(row.id, row.title, row.content,
+              row.author.username, row.author.email,
+              row.author.profile.avatar, row.author.profile.info, row.author.profile.city, row.author.profile.age)
+
     title = "Home"
     return render_template("main/index.html",
                            title=title,
-                           posts=posts)
+                           posts=query)
 
 
 @main.route('/about')
 def about():
-    info = User.select()
+    query = User.select()
     title = "About"
     return render_template('about/about.html',
                            title=title,
-                           list=info)
+                           list=query)

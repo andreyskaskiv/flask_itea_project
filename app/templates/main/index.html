@@ -3,55 +3,38 @@
 {% block page_content %}
 
 
-        <div class="row">
-            <div class="col-md-3"></div>
+    <div class="row">
+        <div class="col-md-3"></div>
 
+        <div class="col-md-8">
+            {% for post in posts %}
+                <article class="media content-section">
+                    <img class="rounded-circle article-img"
+                         src="{{ url_for('static', filename='profile_pics/' + post.author.profile.avatar) }}">
+                    <div class="media-body">
 
-            <div class="content-section col-md-8">
-                {% for post in posts %}
-                    <article class="media content-section">
-                        <div class="media-body">
-                            <div class="article-metadata">
-                                <a class="mr-2" href="#">{{ post.author }}</a>
-                                <small class="text-muted">{{ post.date_posted }}</small>
-                            </div>
-                            <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-                            <p class="article-content">{{ post.content }}</p>
+                        <div class="article-metadata">
+                            <a class="mr-2" href="#">
+                                {{ post.author.username }}
+                            </a>
+
+                            <small class="text-muted">
+                                {{ post.date_posted.strftime('%Y-%m-%d') }}
+                            </small>
                         </div>
-                    </article>
-                {% endfor %}
-            </div>
 
+                        <h2><a class="article-title" href="{{ url_for('posts.post_func', post_id=post.id) }}">
+                            {{ post.title }}
+                        </a></h2>
 
-            {##}
-            {#            <div class="col-md-8">#}
-            {#                {% for post in posts %}#}
-            {#                    <article class="media content-section">#}
-            {#                        <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">#}
-            {#                        <div class="media-body">#}
-            {#                            #}
-            {#                            <div class="article-metadata">#}
-            {#                                <a class="mr-2" href="#">#}
-            {#                                    {{ post.author.username }}#}
-            {#                                </a>#}
-            {#                                #}
-            {#                                <small class="text-muted">#}
-            {#                                    {{ post.date_posted.strftime('%Y-%m-%d')}}#}
-            {#                                </small>#}
-            {#                            </div>#}
-            {#                            #}
-            {#                            <h2><a class="article-title" href="{{ url_for('posts.post_func', post_id=post.id) }}">#}
-            {#                                {{ post.title }}#}
-            {#                            </a></h2>#}
-            {#                            #}
-            {#                            <p class="article-content">{{ post.content }}</p>#}
-            {#                        </div>#}
-            {#                    #}
-            {#                    </article>#}
-            {#                {% endfor %}#}
-            {#            </div>#}
-            <div class="col-md-3"></div>
+                        <p class="article-content">{{ post.content }}</p>
+                    </div>
+
+                </article>
+            {% endfor %}
         </div>
+        <div class="col-md-3"></div>
+    </div>
 
 
 {% endblock page_content %}

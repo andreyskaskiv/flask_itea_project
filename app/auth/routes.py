@@ -36,7 +36,8 @@ def register():
         if not User.select().where(User.email == form.email.data).first():
             user_role = Role.select().where(Role.name == 'user').first()  # Change!!!
 
-            profile = Profile(avatar=get_avatar(form.email.data.lower()),
+            profile = Profile(avatar="default.png",
+                              # avatar=get_avatar(form.email.data.lower()),
                               info=form.info.data,
                               city=form.city.data,
                               age=form.age.data)

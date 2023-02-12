@@ -21,7 +21,7 @@ def save_picture(form_picture):
     return picture_fn
 
 
-def get_avatar(email: str, size: int = 128):
+def get_avatar(email, size=128):
     digest = md5(email.lower().encode('utf-8')).hexdigest()
     url = f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}'
     return url

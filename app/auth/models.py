@@ -33,7 +33,6 @@ class User(BaseModel, UserMixin):
     role = ForeignKeyField(Role, backref='users')
     profile = ForeignKeyField(Profile)
 
-
     @property
     def password(self):
         raise AttributeError('password is not a valid attribute')
@@ -45,3 +44,9 @@ class User(BaseModel, UserMixin):
     def verify_password(self, password):
         return check_password_hash(self.__password_hash, password)
 
+
+class Post(BaseModel):
+    title = CharField(max_length=100)
+    content = TextField(default="")
+    date_posted = DateTimeField(default=datetime.datetime.utcnow)
+    author = ForeignKeyField(User)
