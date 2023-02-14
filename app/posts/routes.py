@@ -1,8 +1,8 @@
 from flask import render_template, redirect, flash, url_for, request, abort
 from flask_login import current_user, login_required
 
+from app.auth.models import Post, User
 from app.posts import posts
-from app.auth.models import Post
 from app.posts.forms import PostForm
 
 
@@ -75,6 +75,24 @@ def delete_post(post_id):
     if posts.author != current_user:
         abort(403)
 
-    posts.delete().execute()
+    posts.delete().where(Post.id == post_id).execute()
     flash('Your posts has been deleted!', 'success')
     return redirect(url_for('main.index'))
+
+
+@posts.route("/user/<string:username>")
+def user_posts(username):
+    user = User.select().where(User.username == username).first()
+
+    if not user:
+        abort(404)
+
+    query = (Post
+             .select()
+             .where(Post.author == user)
+             .order_by(Post.date_posted.desc()))
+
+    return render_template('posts/user_posts.html',
+                           title="title author",
+                           user=user,
+                           posts=query)

@@ -4,7 +4,7 @@ from flask_login import current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, SubmitField, BooleanField, PasswordField
-from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError, Regexp
 
 from app.auth.models import User
 
@@ -28,7 +28,9 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     username = StringField(
         'Username',
-        validators=[DataRequired(), Length(1, 100)],
+        validators=[DataRequired(), Length(1, 100),
+                    Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
+                    'Usernames must have only letters, numbers, underscores')],
         render_kw={'placeholder': 'Enter your name'})
 
     email = StringField('Email',

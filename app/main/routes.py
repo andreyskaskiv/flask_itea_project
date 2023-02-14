@@ -1,6 +1,8 @@
 from flask import render_template, current_app
+from flask_login import login_required
 
 from app.auth.models import Role, Profile, Post, User
+
 from app.main import main
 
 @main.route('/')
@@ -11,7 +13,7 @@ def index():
     if not Role.select().where(Role.name == 'user').first():
         Role(name='user').save()
 
-    query = Post.select()
+    query = Post.select().order_by(Post.date_posted.desc())
     for row in query:
         print(row.id, row.title, row.content,
               row.author.username, row.author.email,
@@ -24,6 +26,7 @@ def index():
 
 
 @main.route('/about')
+@login_required
 def about():
     query = User.select()
     title = "About"
