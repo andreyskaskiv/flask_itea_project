@@ -1,7 +1,9 @@
 from flask import render_template, current_app
 from flask_login import login_required
+from flask_paginate import Pagination, get_page_args
 
 from app.auth.models import Role, Profile, Post, User
+from app.auth.utils import get_quantity
 
 from app.main import main
 
@@ -28,8 +30,19 @@ def index():
 @main.route('/about')
 @login_required
 def about():
-    query = User.select()
-    title = "About"
+    page, per_page, offset = get_page_args(page_parameter='page',
+                                           per_page_parameter='per_page')
+
+    users = User.select()
+    total = users.count()
+
+    pagination_users = get_quantity(users, offset=offset, per_page=per_page)
+
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='bootstrap4')
+
     return render_template('about/about.html',
-                           title=title,
-                           list=query)
+                           users=pagination_users,
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination)

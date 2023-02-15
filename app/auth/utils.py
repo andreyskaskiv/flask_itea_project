@@ -41,3 +41,7 @@ def send_reset_email(user):
 If you did not make this request then simply ignore this email and no changes will be made.
 '''
     mail.send(msg)
+
+
+def get_quantity(obj, offset=0, per_page=10):
+    return obj[offset: offset + per_page]

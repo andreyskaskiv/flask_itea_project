@@ -1,46 +1,88 @@
 {% extends "_base.html" %}
 
 {% block page_content %}
+    {{ pagination.info }}
+    <div class="container">
+        {{ pagination.links }}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Last visit</th>
 
-    <div class="row">
-        <div class="col-md-3"></div>
+                    <th>Role</th>
 
-        <div class="content-section col-md-5">
+                    <th>City</th>
+                    <th>Age</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ loop.index + (page - 1) * per_page }}</td>
 
-            <ul>
-                {% if list %}
-                    {% for row in list %}
-                        <article class="media content-section">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.last_visit }}</td>
 
-                            <ul>
-                                <p>class Role: </p>
-                                <li>name: {{ row.role.name }}</li>
-                            </ul>
-                            <hr>
-                            <ul>
-                                <p>class Profile: </p>
-                                <li>avatar: {{ row.profile.avatar }}</li>
-                                <li>info: {{ row.profile.info }}</li>
-                                <li>city: {{ row.profile.city }}</li>
-                                <li>age: {{ row.profile.age }}</li>
-                            </ul>
-                            <hr>
-                            <ul>
-                                <p>class User: </p>
-                                <li>username: {{ row.username }}</li>
-                                <li>email: {{ row.email }}</li>
-                                <li>password: {{ row.password }}</li>
-                                <li>last_visit: {{ row.last_visit }}</li>
-                                <li>role: {{ row.role }}</li>
-                                <li>profile: {{ row.profile }}</li>
-                            </ul>
-                        </article>
-                    {% endfor %}
-                {% endif %}
-            </ul>
+                        <td>{{ user.role.name }}</td>
+
+                        <td>{{ user.profile.city }}</td>
+                        <td>{{ user.profile.age }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
-
-        <div class="col-md-3"></div>
+        {{ pagination.links }}
     </div>
-
 {% endblock page_content %}
+
+
+
+{##}
+{#{% block page_content %}#}
+{#    <div class="row">#}
+{#        <div class="col-md-3"></div>#}
+{##}
+{#        <div class="content-section col-md-5">#}
+{##}
+{#            <ul>#}
+{#                {% if list %}#}
+{#                    {% for row in list %}#}
+{#                        <article class="media content-section">#}
+{##}
+{#                            <ul>#}
+{#                                <p>class Role: </p>#}
+{#                                <li>name: {{ row.role.name }}</li>#}
+{#                            </ul>#}
+{#                            <hr>#}
+{#                            <ul>#}
+{#                                <p>class Profile: </p>#}
+{#                                <li>avatar: {{ row.profile.avatar }}</li>#}
+{#                                <li>info: {{ row.profile.info }}</li>#}
+{#                                <li>city: {{ row.profile.city }}</li>#}
+{#                                <li>age: {{ row.profile.age }}</li>#}
+{#                            </ul>#}
+{#                            <hr>#}
+{#                            <ul>#}
+{#                                <p>class User: </p>#}
+{#                                <li>username: {{ row.username }}</li>#}
+{#                                <li>email: {{ row.email }}</li>#}
+{#                                <li>password: {{ row.password }}</li>#}
+{#                                <li>last_visit: {{ row.last_visit }}</li>#}
+{#                                <li>role: {{ row.role }}</li>#}
+{#                                <li>profile: {{ row.profile }}</li>#}
+{#                            </ul>#}
+{#                        </article>#}
+{#                    {% endfor %}#}
+{#                {% endif %}#}
+{#            </ul>#}
+{#        </div>#}
+{##}
+{#        <div class="col-md-3"></div>#}
+{#    </div>#}
+{#{% endblock page_content %}#}
