@@ -14,10 +14,10 @@ def index():
         Role(name='user').save()
 
     query = Post.select().order_by(Post.date_posted.desc())
-    for row in query:
-        print(row.id, row.title, row.content,
-              row.author.username, row.author.email,
-              row.author.profile.avatar, row.author.profile.info, row.author.profile.city, row.author.profile.age)
+    # for row in query:
+    #     print(row.id, row.title, row.content,
+    #           row.author.username, row.author.email,
+    #           row.author.profile.avatar, row.author.profile.info, row.author.profile.city, row.author.profile.age)
 
     title = "Home"
     return render_template("main/index.html",
