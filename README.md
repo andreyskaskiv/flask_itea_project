@@ -11,7 +11,7 @@
 6. [ ] User account profile - &#9989;
 7. [ ] Posts - &#9989;
 8. [ ] Pagination - &#10060;
-9. [ ]  Password reset Email - &#10060;
+9. [ ]  Password reset Email - &#10060; / &#9989; _Look at the end of the document_ 	&#8659;
 10. [ ] Error handlers - &#9989;
 
 -------------------------------
@@ -35,3 +35,8 @@ flask run
 `python web.py`
 
 ![example.png](docs%2Fexample.png)
+
+
+## Password recovery error
+
+![error email.png](docs%2Ferror%20email.png)
