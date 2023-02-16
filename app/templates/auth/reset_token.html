@@ -11,7 +11,7 @@
 
         <div class="content-section col-md-5">
             <form action="" method="post">
-                {{ form.csrf_token }}
+       {{ form.hidden_tag() }}
                 {{ wtf.form_field(form.password) }}
                 {{ wtf.form_field(form.password_repeat) }}
                 {{ form.submit }}

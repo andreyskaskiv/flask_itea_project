@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
+from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager
 from flask_mail import Mail
 from peewee import SqliteDatabase
@@ -29,6 +30,10 @@ def create_app(config_name='default'):
 
     database_proxy.initialize(db)
     app.config['db'] = db
+
+    csrf = CSRFProtect(app)
+    csrf.init_app(app)
+    app.config['CSRF'] = csrf
 
     login_manager.init_app(app)
 
