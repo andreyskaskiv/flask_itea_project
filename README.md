@@ -10,7 +10,7 @@
 5. [ ] Login and Authentication - &#9989;
 6. [ ] User account profile - &#9989;
 7. [ ] Posts - &#9989;
-8. [ ] Pagination users - &#9989;, pagination posts - &#10060;
+8. [ ] Pagination users - &#9989;, pagination posts - &#9989;
 9. [ ]  Password reset Email - &#10060; / &#9989; _Look at the end of the document_ 	&#8659;
 10. [ ] Error handlers - &#9989;
 
