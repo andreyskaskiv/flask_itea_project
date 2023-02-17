@@ -4,7 +4,7 @@ from flask_login import login_required, logout_user, current_user, login_user
 from app.auth import auth
 from app.auth.forms import LoginForm, RegisterForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm
 from app.auth.models import User, Role, Profile
-from app.auth.utils import save_picture, get_avatar, send_reset_email
+from app.auth.utils import save_picture, send_reset_email, get_avatar
 
 
 @auth.route("/login", methods=["POST", "GET"])
@@ -30,14 +30,16 @@ def login():
 
 @auth.route("/register", methods=("POST", "GET"))
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+
     form = RegisterForm()
     if form.validate_on_submit():
 
         if not User.select().where(User.email == form.email.data).first():
             user_role = Role.select().where(Role.name == 'user').first()  # Change!!!
 
-            profile = Profile(avatar="default.png",
-                              # avatar=get_avatar(form.email.data.lower()),
+            profile = Profile(avatar=get_avatar(form.email.data),
                               info=form.info.data,
                               city=form.city.data,
                               age=form.age.data)
@@ -77,6 +79,7 @@ def account():
     if form.validate_on_submit():
 
         if form.picture.data:
+            print(form.picture.data)
             picture_file = save_picture(form.picture.data)
             current_user.profile.avatar = picture_file
             current_user.profile.save()
@@ -90,12 +93,12 @@ def account():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    image_file = url_for('static', filename='profile_pics/' + current_user.profile.avatar)
 
     return render_template('auth/account.html',
                            title='Account',
-                           image_file=image_file,
+                           image_file=current_user.profile.avatar,
                            form=form)
+
 
 @auth.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
@@ -125,7 +128,8 @@ def reset_token(token):
     form = ResetPasswordForm()
     if form.validate_on_submit():
         user.password = form.password.data
-        db.session.commit()
+        user.save()
+        # db.session.commit()
 
         flash('Your password has been updated! You are now able to log in', 'success')
         return redirect(url_for('auth.login'))

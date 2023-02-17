@@ -1,5 +1,5 @@
 <nav class="navbar-wrapper navbar-inverse navbar-fixed-top">
-    <div class="container-fluid" >
+    <div class="container-fluid">
         <!-- Brand and toggle button get grouped with a navbar-header class for better mobile display -->
         <div class="navbar-header">
             <a href="/" class="navbar-brand">Itea Project</a>
@@ -36,8 +36,12 @@
 
                 {% if current_user.is_authenticated %}
                     <li><a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a></li>
+
                     <li><a href="{{ url_for('auth.account') }}">
-                        <span id="sign_up_menu_icon_color" class="glyphicon glyphicon-user"></span> Account</a></li>
+                        <img src="{{ current_user.profile.avatar }}" alt="avatar" width="25" height="20">
+                        {{ current_user.username }}
+                    </a></li>
+                    {#<span id="sign_up_menu_icon_color" class="glyphicon glyphicon-user"></span> Account</a></li>#}
 
                     <li><a href="{{ url_for('auth.logout') }}">
                         <span id="login_menu_icon_color" class="glyphicon glyphicon-log-in"></span> Logout</a></li>

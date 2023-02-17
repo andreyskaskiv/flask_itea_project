@@ -21,7 +21,8 @@ def save_picture(form_picture):
     i.thumbnail(output_size)
     i.save(picture_path)
 
-    return picture_fn
+    path_to_picture = '/static/profile_pics/'+picture_fn
+    return path_to_picture
 
 
 def get_avatar(email, size=128):

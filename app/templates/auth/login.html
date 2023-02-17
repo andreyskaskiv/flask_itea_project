@@ -3,13 +3,13 @@
 
 {% block page_content %}
 
-        <div class="row">
+    <div class="row">
         <div class="col-md-3"></div>
 
 
         <div class="content-section col-md-5">
             <form action="" method="post">
-       {{ form.hidden_tag() }}
+                {{ form.hidden_tag() }}
                 {{ wtf.form_field(form.email) }}
                 {{ wtf.form_field(form.password) }}
                 {{ wtf.form_field(form.remember) }}
