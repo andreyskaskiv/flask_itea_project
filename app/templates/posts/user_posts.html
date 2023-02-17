@@ -2,7 +2,7 @@
 
 {% block page_content %}
 
-    <h1 class="mb-3">Posts by {{ user.username }} ({{ posts.count() }})</h1>
+    <h3 class="mb-3">Posts by {{ user.username }} ({{ posts.count() }})</h3>
     {% for post in posts %}
         <article class="media content-section">
             <img class="rounded-circle article-img pull-left"

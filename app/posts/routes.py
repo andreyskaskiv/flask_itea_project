@@ -1,9 +1,34 @@
 from flask import render_template, redirect, flash, url_for, request, abort
 from flask_login import current_user, login_required
+from flask_paginate import get_page_args, Pagination
 
 from app.auth.models import Post, User
+from app.auth.utils import get_quantity
 from app.posts import posts
 from app.posts.forms import PostForm
+
+
+@posts.route("/")
+@login_required
+def blog():
+    page, per_page, offset = get_page_args(page_parameter='page',
+                                           per_page_parameter='per_page')
+
+    blog = Post.select().order_by(Post.date_posted.desc())
+    total = blog.count()
+
+    pagination_posts = get_quantity(blog, offset=offset, per_page=per_page)
+
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='bootstrap4')
+
+    title = "Home"
+    return render_template('posts/blog.html',
+                           posts=pagination_posts,
+                           title=title,
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination)
 
 
 @posts.route("/post/new", methods=['GET', 'POST'])
@@ -18,7 +43,7 @@ def new_post():
         post.save()
 
         flash('Your posts has been created!', 'success')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('posts.blog'))
 
     return render_template('posts/create_post.html',
                            title='New Post',
@@ -77,7 +102,7 @@ def delete_post(post_id):
 
     posts.delete().where(Post.id == post_id).execute()
     flash('Your posts has been deleted!', 'success')
-    return redirect(url_for('main.index'))
+    return redirect(url_for('posts.blog'))
 
 
 @posts.route("/user/<string:username>")

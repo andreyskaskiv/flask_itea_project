@@ -131,7 +131,6 @@ def reset_token(token):
     if form.validate_on_submit():
         user.password = form.password.data
         user.save()
-        # db.session.commit()
 
         flash('Your password has been updated! You are now able to log in', 'success')
         return redirect(url_for('auth.login'))
