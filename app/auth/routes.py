@@ -1,3 +1,5 @@
+import datetime
+
 from flask import render_template, request, redirect, flash, url_for
 from flask_login import login_required, logout_user, current_user, login_user
 
@@ -17,6 +19,7 @@ def login():
         user = User.select().where(User.email == form.email.data).first()
         if user is not None and user.verify_password(form.password.data):
             login_user(user, remember=form.remember.data)
+            user.last_visit = datetime.datetime.now()
             user.save()
             return redirect(request.args.get("next") or url_for('main.index'))
         else:
@@ -52,10 +55,10 @@ def register():
                         profile=profile.id)
             user.save()
 
-            flash(f'{user.username} has added')
+            flash(f'{user.username} has added', 'info')
             return redirect(url_for('auth.login'))
 
-        flash(f"User with this {form.email.data} already exists")
+        flash(f"User with this {form.email.data} already exists", 'danger')
 
     title = "Registration"
     return render_template("auth/register.html",
@@ -79,7 +82,6 @@ def account():
     if form.validate_on_submit():
 
         if form.picture.data:
-            print(form.picture.data)
             picture_file = save_picture(form.picture.data)
             current_user.profile.avatar = picture_file
             current_user.profile.save()

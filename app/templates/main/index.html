@@ -6,7 +6,6 @@
     <div class="row">
         <div class="col-md-3"></div>
 
-        {{ pagination.info }}
         {{ pagination.links }}
 
         <div class="col-md-8">
@@ -28,15 +27,18 @@
                                         <div class="article-metadata">
                                             <a class="mr-2"
                                                href="{{ url_for('posts.user_posts', username=post.author.username) }}">
-                                                {{ post.author.username }}
+                                                {{ post.author.username }},
+                                                last visit: {{ current_user.last_visit.strftime('%Y-%m-%d %H:%M:%S') }}
                                             </a>
-                                            <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                                            <small class="text-muted pull-right">
+                                                Date post: {{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}
+                                            </small>
                                         </div>
 
-                                        <h2><a class="article-title"
+                                        <h3><a class="article-title"
                                                href="{{ url_for('posts.post_func', post_id=post.id) }}">
                                             {{ post.title }}
-                                        </a></h2>
+                                        </a></h3>
 
                                         <p class="article-content">{{ post.content }}</p>
                                     </div>
@@ -45,7 +47,7 @@
                         {% endfor %}
                         </tbody>
                     </table>
-                    {{ pagination.links }}
+                     {{ pagination.info }}{{ pagination.links }}
                 </div>
             </div>
         </div>

@@ -44,11 +44,13 @@ def create_app(config_name='default'):
     from app.main import main
     from app.auth import auth
     from app.posts import posts
+    from app.admin import admin
     from app.weather import weather
 
     app.register_blueprint(main)
     app.register_blueprint(auth)
     app.register_blueprint(posts)
+    app.register_blueprint(admin)
     app.register_blueprint(weather)
 
     return app

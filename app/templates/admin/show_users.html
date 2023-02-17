@@ -1,0 +1,64 @@
+{% extends "_base.html" %}
+
+{% block page_content %}
+    <h1>Users admin panel</h1>
+    <div class="container">
+        <button type="button" class="btn btn-primary" id="selectButton" onclick="toggle()">Select all</button>
+        <button type="submit" class="btn btn-danger" form="userForm">Delete</button>
+        <hr>
+
+        {{ pagination.links }}
+        <form action="{{ url_for('admin.delete_users') }}" method="post" id="userForm">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <table class="table table-hover table-striped" id="userTable">
+
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th class="col">Select</th>
+                    <th>Avatar</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Last visit</th>
+
+                    <th>Role</th>
+
+                    <th>City</th>
+                    <th>Age</th>
+                    <th class="col">Edit</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ loop.index + (page - 1) * per_page }}</td>
+                        <td>
+                            <input type="checkbox" name="selectors" class="checkbox" value="{{ user.id }}">
+                        </td>
+                        <td>
+                            <img src="{{ user.profile.avatar }}" alt="avatar" width="25" height="20">
+                        </td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.last_visit.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+
+                        <td>{{ user.role.name }}</td>
+
+                        <td>{{ user.profile.city }}</td>
+                        <td>{{ user.profile.age }}</td>
+                        <td>
+                            <a href="{{ url_for('admin.edit_user', user_id=user.id) }}">
+                                <button type="button" class="btn btn-info">Edit</button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {{ pagination.info }} {{ pagination.links }}
+        </form>
+        <hr>
+    </div>
+{% endblock page_content %}

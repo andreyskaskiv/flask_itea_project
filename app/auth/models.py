@@ -1,8 +1,8 @@
 import datetime
 
 from flask import current_app
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_login import UserMixin
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from peewee import CharField, DateTimeField, ForeignKeyField, TextField, IntegerField
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -58,6 +58,11 @@ class User(BaseModel, UserMixin):
 
     def verify_password(self, password):
         return check_password_hash(self.__password_hash, password)
+
+    def is_admin(self):
+        if self.role.name == 'admin':
+            return True
+        return False
 
 
 class Post(BaseModel):

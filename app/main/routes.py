@@ -12,7 +12,11 @@ def index():
     db.create_tables([Role, Profile, Post, User])
 
     if not Role.select().where(Role.name == 'user').first():
-        Role(name='user').save()
+        roles = [
+            ('user',),
+            ('admin',)
+        ]
+        Role.insert_many(roles, fields=[Role.name]).execute()
 
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
