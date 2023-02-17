@@ -6,15 +6,15 @@
     <div class="row">
         <div class="col-md-3"></div>
 
-        <div class="content-section  col-md-5">
+        <div class="content-section  col-md-6">
 
             <div class="media">
-                <img class="rounded-circle account-img" src="{{ image_file }}">
+                <img class="account-img pull-left" src="{{ image_file }}">
                 <div class="media-body">
                     <td class="profile-panel">
-                        <ul class="profile-info">
-                            <h3>profile-info: </h3>
-                            <li>Name: {{ current_user.username }}</li>
+                        <ul class="profile-info pull-right">
+                            <h3>Info</h3>
+                            <li>Username: {{ current_user.username }}</li>
                             <li>Email: {{ current_user.email }}</li>
                             <li>Age: {{ current_user.profile.age }}</li>
                             <li>Info: {{ current_user.profile.info }}</li>
