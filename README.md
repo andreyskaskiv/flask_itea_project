@@ -13,16 +13,16 @@
 8. [ ] Pagination users - &#9989;, pagination posts - &#9989;
 9. [ ]  Password reset Email - &#10060; / &#9989; _Look at the end of the document_ 	&#8659;
 10. [ ] Error handlers - &#9989;
+11.  [ ] Deleting any post with admin rights - &#10060;
+12. [ ] Generation of users and posts - &#9989;
+13. [ ] Api - &#10060;
+14. [ ] Weather app - &#10060;
+15. [ ] Data generation refactoring - &#10060;
+
 
 -------------------------------
 ---
 
-### For tests:
-
-1. [ ] admin@mail.com
-2. [ ] P9C1fb75nTyZpLDtDd9g#
-
----
 
 
 ~~~shell
@@ -42,7 +42,16 @@ flask run
 ## Run the app
 `python web.py`
 
-![example.png](docs%2Fexample.png)
+-------------------------------
+---
+
+Examples: 
+
+![home_page.png](docs%2Fhome_page.png)
+
+![blog_page.png](docs%2Fblog_page.png)
+
+![admin_page.png](docs%2Fadmin_page.png)
 
 
 ## Password recovery error
