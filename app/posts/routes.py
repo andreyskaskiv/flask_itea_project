@@ -9,19 +9,19 @@ from app.posts.forms import PostForm
 
 
 @posts.route("/")
-@login_required
+@login_required  # <====== Here is the bug !!!
 def blog():
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
-
     blog = Post.select().order_by(Post.date_posted.desc())
     total = blog.count()
-
-    pagination_posts = get_quantity(blog, offset=offset, per_page=per_page)
-
-    pagination = Pagination(page=page, per_page=per_page, total=total,
+    pagination_posts = get_quantity(blog,
+                                    offset=offset,
+                                    per_page=per_page)
+    pagination = Pagination(page=page,
+                            per_page=per_page,
+                            total=total,
                             css_framework='bootstrap4')
-
     title = "Home"
     return render_template('posts/blog.html',
                            posts=pagination_posts,

@@ -4,7 +4,7 @@ from flask_paginate import Pagination, get_page_args
 
 from app.admin import admin
 from app.admin.forms import EditUserForm
-from app.auth.models import User, Profile, Role
+from app.auth.models import User, Profile, Role, Post
 from app.auth.utils import get_quantity
 
 
@@ -35,8 +35,8 @@ def show_users():
 @login_required
 def edit_user(user_id: int):
     """Edit user"""
-    # if not current_user.is_admin():
-    #     abort(403)
+    if not current_user.is_admin():
+        abort(403)
 
     user = User.select().where(User.id == user_id).first()
     if not user:
@@ -79,9 +79,9 @@ def update_user():
 @login_required
 def delete_users():
     """Delete selected users"""
-    # if not current_user.is_admin():
-    #     flash('You don\'t have access to delete users', 'error')
-    #     return redirect(url_for('.show_users'))
+    if not current_user.is_admin():
+        flash('You don\'t have access to delete users', 'error')
+        return redirect(url_for('admin.show_users'))
 
     selectors = list(map(int, request.form.getlist('selectors')))
 
@@ -97,7 +97,10 @@ def delete_users():
     for selector in selectors:
         user = User.get(User.id == selector)
         profile = Profile.get(Profile.id == user.profile.id)
+
         message += f'{user.email} '
+
+        Post.delete().where(Post.author == user).execute()
         user.delete_instance()
         profile.delete_instance()
     flash(message, 'info')

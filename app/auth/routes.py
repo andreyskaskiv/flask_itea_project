@@ -33,6 +33,8 @@ def login():
 
 @auth.route("/register", methods=("POST", "GET"))
 def register():
+    """Populating database models Profile, User"""
+
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
 
@@ -40,7 +42,7 @@ def register():
     if form.validate_on_submit():
 
         if not User.select().where(User.email == form.email.data).first():
-            user_role = Role.select().where(Role.name == 'user').first()  # Change!!!
+            user_role = Role.select().where(Role.name == 'user').first()
 
             profile = Profile(avatar=get_avatar(form.email.data),
                               info=form.info.data,
@@ -51,7 +53,7 @@ def register():
             user = User(username=form.username.data,
                         email=form.email.data,
                         password=form.password.data,
-                        role=user_role,
+                        role=1,
                         profile=profile.id)
             user.save()
 
@@ -77,6 +79,7 @@ def logout():
 @auth.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
+    """ Displaying and updating the user profile """
     form = UpdateAccountForm()
 
     if form.validate_on_submit():

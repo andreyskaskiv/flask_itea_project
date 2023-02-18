@@ -1,6 +1,33 @@
 {% extends '_base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block page_content %}
-    <h1>main.index</h1>
+    <div class="page-header">
+
+        <h2>Hello,
+            {% if current_user.is_authenticated %}
+                {{ current_user.username }}
+            {% else %}
+                Anonymous
+            {% endif %}
+        </h2>
+        <hr>
+
+
+        <div class="row">
+            <div class="col-md-3"></div>
+
+            <div class="content-section col-md-6 text-center">
+                <h4>Generate test data</h4>
+                <form action="" method="post">
+                    {{ form.csrf_token }}
+                    {{ wtf.form_field(form.submit) }}
+                </form>
+            </div>
+
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+
 
 {% endblock page_content %}
