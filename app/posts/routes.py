@@ -9,7 +9,6 @@ from app.posts.forms import PostForm
 
 
 @posts.route("/")
-@login_required  # <====== Here is the bug !!!
 def blog():
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')

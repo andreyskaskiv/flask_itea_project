@@ -9,7 +9,7 @@
             <div class="article-metadata">
                 <a class="mr-2" href="{{ url_for('posts.user_posts', username=post.author.username) }}">
                     {{ post.author.username }},
-                    last visit: {{ current_user.last_visit.strftime('%Y-%m-%d %H:%M:%S') }}
+                    last visit: {{ post.author.last_visit.strftime('%Y-%m-%d %H:%M:%S') }}
                 </a>
                 <small class="text-muted pull-right">
                     Date post: {{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}
