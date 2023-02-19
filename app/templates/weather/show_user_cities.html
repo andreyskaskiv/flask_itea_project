@@ -18,6 +18,7 @@
                     <th class="col">Select</th>
                     <th>#</th>
                     <th>City</th>
+                    <th>Icon</th>
                     <th>Temp</th>
                     <th>Temp feels like</th>
                     <th>Atmospheric pressure</th>
@@ -27,24 +28,24 @@
                 </thead>
 
                 <tbody>
-                {% for city in cities %}
+                {% for city in all_cities %}
                     <tr>
 
                         <td>
-                            <input type="checkbox" name="selectors" class="checkbox" value="{{ city.id }}">
+                            <input type="checkbox" name="selectors" class="checkbox" value="{{ city.city_id }}">
                         </td>
 
                         <td>{{ loop.index + (page - 1) * per_page }}</td>
-                        <td>{{ city.city_name }}</td>
-                        <td>{{ get_weather(weather_url, api_key, city.city_name)['main']['temp'] }}&deg;</td>
-                        <td>{{ get_weather(weather_url, api_key, city.city_name)['main']['feels_like'] }}&deg;</td>
-                        <td>{{ get_weather(weather_url, api_key, city.city_name)['main']['pressure'] }} hPa</td>
-                        <td>{{ get_weather(weather_url, api_key, city.city_name)['wind']['speed'] }} meter/sec</td>
-                        <td><a class="mr-2" href="#">
-                            {{ get_weather(weather_url, api_key, city.city_name)['sys']['country'] }}
-                        </a></td>
-
-
+                        <td>{{ city.city }}</td>
+                        <td>
+                            <img src="http://openweathermap.org/img/w/{{ city.icon }}.png"
+                                 alt="avatar" width="25" height="20">
+                        </td>
+                        <td>{{ city.temp }}&deg;</td>
+                        <td>{{ city.feels_like }}&deg;</td>
+                        <td>{{ city.pressure }} hPa</td>
+                        <td>{{ city.wind }} meter/sec</td>
+                        <td><a class="mr-2" href="#">{{ city.code }}</a></td>
 
                     </tr>
                 {% endfor %}

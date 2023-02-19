@@ -31,7 +31,7 @@ def get_weather(weather_url: str, api_key: str, city: str):
 
 
 if __name__ == '__main__':
-    # print(get_weather(OPENWEATHER_API_URL, WEATHER_API_KEY, 'Barcelona'))
+    print(get_weather(OPENWEATHER_API_URL, WEATHER_API_KEY, 'Barcelona'))
     print('-' * 50)
     print(f"Temperature = {get_weather(OPENWEATHER_API_URL, WEATHER_API_KEY, 'Barcelona')['main']['temp']} Celsius\n"
           f"Temperature feels like = {get_weather(OPENWEATHER_API_URL, WEATHER_API_KEY, 'Barcelona')['main']['feels_like']} Celsius\n"
