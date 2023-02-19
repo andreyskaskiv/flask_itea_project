@@ -2,11 +2,12 @@ import random
 
 from app.auth.models import Post, User, Profile
 from app.auth.utils import get_avatar
-from app.generate_data.utils import (generate_random_name,
-                                     generate_random_email,
-                                     generate_random_password,
-                                     generate_random_city,
-                                     generate_users_posts)
+from app.generate_data.random_value_generation import (generate_random_name,
+                                                       generate_random_email,
+                                                       generate_random_password,
+                                                       generate_random_city,
+                                                       generate_users_posts)
+from app.weather.models import UserCity
 
 
 def write_to_profile(avatar, info, city, age):
@@ -39,6 +40,7 @@ def write_to_post(title, content, user_id):
 
 def database_cleanup():
     """ Delete admin, users and posts """
+    UserCity().delete().execute()
     Post().delete().execute()
     User().delete().execute()
     Profile().delete().execute()
@@ -87,7 +89,7 @@ def create_blog():
 
 
 def create_data():
-    """ Create admin, users and posts """
+    """ Create admin, users, posts, city_id table"""
     database_cleanup()
 
     email_admin, password_admin = create_admin()

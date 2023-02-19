@@ -1,0 +1,58 @@
+{% extends "_base.html" %}
+
+{% block page_content %}
+    <h3 class="mb-3">Cities to monitor by {{ current_user.username }}</h3>
+
+    <div class="container">
+        <button type="button" class="btn btn-primary" id="selectButton" onclick="toggle()">Select all</button>
+        <button type="submit" class="btn btn-danger" form="userForm">Delete</button>
+        <hr>
+
+        {{ pagination.links }}
+        <form action="{{ url_for('weather.delete_cities') }}" method="post" id="userForm">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <table class="table table-hover table-striped" id="userTable">
+
+                <thead>
+                <tr>
+                    <th class="col">Select</th>
+                    <th>#</th>
+                    <th>City</th>
+                    <th>Temp</th>
+                    <th>Temp feels like</th>
+                    <th>Atmospheric pressure</th>
+                    <th>Wind speed</th>
+                    <th>Country code</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for city in cities %}
+                    <tr>
+
+                        <td>
+                            <input type="checkbox" name="selectors" class="checkbox" value="{{ city.id }}">
+                        </td>
+
+                        <td>{{ loop.index + (page - 1) * per_page }}</td>
+                        <td>{{ city.city_name }}</td>
+                        <td>{{ get_weather(weather_url, api_key, city.city_name)['main']['temp'] }}&deg;</td>
+                        <td>{{ get_weather(weather_url, api_key, city.city_name)['main']['feels_like'] }}&deg;</td>
+                        <td>{{ get_weather(weather_url, api_key, city.city_name)['main']['pressure'] }} hPa</td>
+                        <td>{{ get_weather(weather_url, api_key, city.city_name)['wind']['speed'] }} meter/sec</td>
+                        <td><a class="mr-2" href="#">
+                            {{ get_weather(weather_url, api_key, city.city_name)['sys']['country'] }}
+                        </a></td>
+
+
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {{ pagination.info }} {{ pagination.links }}
+        </form>
+        <hr>
+    </div>
+{% endblock page_content %}

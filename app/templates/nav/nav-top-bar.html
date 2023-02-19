@@ -27,9 +27,21 @@
                     <span id="services_menu_icon_color" class="glyphicon glyphicon-wrench"></span> Admin</a>
                 </li>
 
-                <li class=""><a href="{{ url_for('weather.index') }}">
-                    <span id="sign_up_menu_icon_color" class="glyphicon glyphicon-globe"></span> Weather</a>
+
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <span id="sign_up_menu_icon_color" class="glyphicon glyphicon-globe"></span> Weather
+                        <span class="caret"></span></a>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ url_for('weather.index') }}">Search city</a></li>
+                        <li><a href="{{ url_for('weather.show_user_cities') }}">Monitor weather</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">None</a></li>
+                        <li><a href="#">None</a></li>
+                    </ul>
                 </li>
+
 
                 <li class=""><a href="#">
                     <span id="contact_us_menu_icon_color" class="glyphicon glyphicon-envelope"></span> Contact Us</a>

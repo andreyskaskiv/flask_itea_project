@@ -4,12 +4,13 @@ from app.auth.models import Role, Profile, Post, User
 from app.generate_data.main import  create_data
 from app.main import main
 from app.main.forms import GenerateDataForm
+from app.weather.models import UserCity
 
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
     db = current_app.config['db']
-    db.create_tables([Role, Profile, Post, User])
+    db.create_tables([Role, Profile, Post, User, UserCity])
 
     if not Role.select().where(Role.name == 'user').first():
         roles = [

@@ -7,6 +7,9 @@ class Config:
     DB_NAME = os.getenv('DATABASE', 'test.db')
     BASE_DIR = Path(__file__).parent.parent
 
+    WEATHER_API_KEY = os.getenv('WEATHER_API_KEY')
+    OPENWEATHER_API_URL = os.getenv('OPENWEATHER_API_URL')
+
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True

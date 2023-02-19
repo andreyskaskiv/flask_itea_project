@@ -92,7 +92,8 @@ class UpdateAccountForm(FlaskForm):
     picture = FileField('Update Profile Picture',
                         validators=[FileAllowed(['jpg', 'png'])])
 
-    submit = SubmitField('Update')
+    submit = SubmitField('Update',
+                         render_kw={'class': 'btn btn-primary'})
 
     def validate_username(self, username):
         if username.data != current_user.username:

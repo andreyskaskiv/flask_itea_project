@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block page_content %}
+
+
+    <div class="row">
+        <div class="col-md-3"></div>
+
+
+        <div class="content-section col-md-5">
+            <form action="" method="post">
+                {{ form.csrf_token }}
+                {{ wtf.form_field(form.city_name) }}
+                {{ form.submit }}
+            </form>
+        </div>
+
+
+        <div class="col-md-3"></div>
+    </div>
+
+
+
+{% endblock page_content %}

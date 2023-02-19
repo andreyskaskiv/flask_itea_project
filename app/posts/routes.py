@@ -52,7 +52,7 @@ def new_post():
 
 
 @posts.route("/post/<int:post_id>")
-def post_func(post_id):
+def show_post(post_id):
     post = Post.select().where(Post.id == post_id).first()
     if not post:
         abort(404)
@@ -79,7 +79,7 @@ def update_post(post_id):
         posts.save()
 
         flash('Your posts has been updated!', 'success')
-        return redirect(url_for('posts.post_func', post_id=posts.id))
+        return redirect(url_for('posts.show_post', post_id=posts.id))
 
     elif request.method == 'GET':
         form.title.data = posts.title
