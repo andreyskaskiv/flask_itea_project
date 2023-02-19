@@ -1,6 +1,8 @@
 import random
 import string
 
+from app.generate_data.name.parser import run_parser
+
 
 def generate_random_password(characters_number: int = 20):
     """ Random password generation 'zbjv(7#Q3on\5fNKVx'1' """
@@ -9,10 +11,11 @@ def generate_random_password(characters_number: int = 20):
     return random_password
 
 
-def generate_random_name(characters_number: int = 10):
-    """ Random name generation 'Pcunoabp' """
-    letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for _ in range(characters_number)).capitalize()
+def generate_random_name():
+    """ Random name generation with baby_names """
+    names_parser = run_parser()
+    names = names_parser['BoysNames'] + names_parser['GirlsNames']
+    return random.choice(names)
 
 
 def generate_random_email(username_generate: str, characters_number: int = 5):
@@ -31,12 +34,12 @@ def generate_random_city():
 def generate_users_posts():
     """ Generating random posts using 'ascii_lowercase + .?!,' """
     characters = string.ascii_lowercase + " "
-    punctuation = ".?!,"
+    punctuation = ".?!, "
 
     post = []
-    post_length = random.randint(10, 20)
+    post_length = random.randint(20, 50)
     while len(post) < post_length:
-        sentence_length = random.randint(30, 50)
+        sentence_length = random.randint(10, 30)
         sentence = ''.join(random.choice(characters) for _ in range(sentence_length)).capitalize()
         sentence += random.choice(punctuation)
         post.append(sentence)

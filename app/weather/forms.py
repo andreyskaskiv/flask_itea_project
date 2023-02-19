@@ -9,7 +9,7 @@ valid_cities = create_city_id()
 
 
 class CityForm(FlaskForm):
-    city_name = StringField('City e.g. Barcelona, Tokyo, New York, Las Vegas, London',
+    city_name = StringField('City e.g. Barcelona, Tokyo, New York, Las Vegas, London...',
                             validators=[DataRequired(), Length(2, 100),
                                         Regexp('[a-zA-Z]', 0, 'City name must have only letters')],
                             render_kw={'placeholder': 'Enter city'})
