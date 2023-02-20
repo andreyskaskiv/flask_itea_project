@@ -1,33 +1,28 @@
 from flask import render_template, flash, redirect, url_for, abort, request
 from flask_login import login_required, current_user
-from flask_paginate import Pagination, get_page_args
+from flask_paginate import Pagination, get_page_args, get_page_parameter
 
 from app.admin import admin
 from app.admin.forms import EditUserForm
 from app.auth.models import User, Profile, Role, Post
-from app.auth.utils import get_quantity
+
 
 
 @admin.route('/index')
 @login_required
 def show_users():
     """Show users information"""
-    page, per_page, offset = get_page_args(page_parameter='page',
-                                           per_page_parameter='per_page')
 
-    users = User.select()
-    total = users.count()
+    per_page = 8
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    total = User.select().count()
+    pagination = Pagination(page=page, per_page=per_page, total=total, record_name='users')
 
-    pagination_users = get_quantity(users, offset=offset, per_page=per_page)
-
-    pagination = Pagination(page=page, per_page=per_page, total=total,
-                            css_framework='bootstrap4')
+    users = User.select().paginate(page, per_page)
 
     return render_template('admin/show_users.html',
                            title='Show users',
-                           users=pagination_users,
-                           page=page,
-                           per_page=per_page,
+                           users=users,
                            pagination=pagination)
 
 

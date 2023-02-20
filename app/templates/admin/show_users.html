@@ -32,7 +32,6 @@
                 <tbody>
                 {% for user in users %}
                     <tr>
-                        <td>{{ loop.index + (page - 1) * per_page }}</td>
                         <td>
                             <input type="checkbox" name="selectors" class="checkbox" value="{{ user.id }}">
                         </td>

@@ -1,32 +1,24 @@
 from flask import render_template, redirect, flash, url_for, request, abort
 from flask_login import current_user, login_required
-from flask_paginate import get_page_args, Pagination
+from flask_paginate import get_page_args, Pagination, get_page_parameter
 
 from app.auth.models import Post, User
-from app.auth.utils import get_quantity
 from app.posts import posts
 from app.posts.forms import PostForm
 
 
 @posts.route("/")
 def blog():
-    page, per_page, offset = get_page_args(page_parameter='page',
-                                           per_page_parameter='per_page')
-    blog = Post.select().order_by(Post.date_posted.desc())
-    total = blog.count()
-    pagination_posts = get_quantity(blog,
-                                    offset=offset,
-                                    per_page=per_page)
-    pagination = Pagination(page=page,
-                            per_page=per_page,
-                            total=total,
-                            css_framework='bootstrap4')
+    per_page = 5
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    total = Post.select().count()
+    pagination = Pagination(page=page, per_page=per_page, total=total, record_name='users')
+    posts = Post.select().paginate(page, per_page).order_by(Post.date_posted.desc())
+
     title = "Home"
     return render_template('posts/blog.html',
-                           posts=pagination_posts,
+                           posts=posts,
                            title=title,
-                           page=page,
-                           per_page=per_page,
                            pagination=pagination)
 
 
@@ -111,12 +103,22 @@ def user_posts(username):
     if not user:
         abort(404)
 
-    query = (Post
+    per_page = 5
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    total = (Post
+             .select()
+             .where(Post.author == user)).count()
+
+    pagination = Pagination(page=page, per_page=per_page, total=total, record_name='posts')
+
+    posts = (Post
              .select()
              .where(Post.author == user)
+             .paginate(page, per_page)
              .order_by(Post.date_posted.desc()))
 
     return render_template('posts/user_posts.html',
                            title="title author",
                            user=user,
-                           posts=query)
+                           posts=posts,
+                           pagination=pagination)
