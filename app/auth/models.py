@@ -6,13 +6,8 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from peewee import CharField, DateTimeField, ForeignKeyField, TextField, IntegerField
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app import login_manager
 from app.base_model import BaseModel
 
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.select().where(User.id == user_id).first()
 
 
 class Role(BaseModel):

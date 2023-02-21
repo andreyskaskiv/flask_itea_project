@@ -8,7 +8,6 @@
         <button type="submit" class="btn btn-danger" form="userForm">Delete</button>
         <hr>
 
-        {{ pagination.links }}
         <form action="{{ url_for('weather.delete_cities') }}" method="post" id="userForm">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <table class="table table-hover table-striped" id="userTable">
@@ -18,41 +17,35 @@
                     <th class="col">Select</th>
                     <th>#</th>
                     <th>City</th>
-                    <th>Icon</th>
-                    <th>Temp</th>
-                    <th>Temp feels like</th>
-                    <th>Atmospheric pressure</th>
-                    <th>Wind speed</th>
+                    <th>Country</th>
                     <th>Country code</th>
+                    <th>Flag</th>
                 </tr>
                 </thead>
 
                 <tbody>
-                {% for city in all_cities %}
+                {% for city_user in cities %}
                     <tr>
 
                         <td>
-                            <input type="checkbox" name="selectors" class="checkbox" value="{{ city.city_id }}">
+                            <input type="checkbox" name="selectors" class="checkbox" value="{{ city_user.city_id }}">
+                        </td>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ city_user.city.name }}</td>
+                        <td>{{ city_user.city.country.name }}</td>
+                        <td>{{ city_user.city.country.code }}</td>
+
+                        <td>
+                            <img src="{{ city_user.city.country.flag }}" width="25" height="20">
                         </td>
 
-                        <td>{{ loop.index + (page - 1) * per_page }}</td>
-                        <td>{{ city.city }}</td>
-                        <td>
-                            <img src="http://openweathermap.org/img/w/{{ city.icon }}.png"
-                                 alt="avatar" width="25" height="20">
-                        </td>
-                        <td>{{ city.temp }}&deg;</td>
-                        <td>{{ city.feels_like }}&deg;</td>
-                        <td>{{ city.pressure }} hPa</td>
-                        <td>{{ city.wind }} meter/sec</td>
-                        <td><a class="mr-2" href="#">{{ city.code }}</a></td>
 
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
 
-            {{ pagination.info }} {{ pagination.links }}
+
         </form>
         <hr>
     </div>

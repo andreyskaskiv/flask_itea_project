@@ -1,18 +1,17 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_wtf.csrf import CSRFProtect
-from flask_login import LoginManager
-from flask_mail import Mail
+
 from peewee import SqliteDatabase
 
-from app.base_model import database_proxy
 from app.config import config
+from app.base_model import database_proxy
+from app.auth.models import Profile, Role, User, Post
+from app.weather.models import City, Country, UserCity
+from app.auth.utils import login_manager, mail
 from app.error_handlers import page_not_found, internal_server_error
 
-login_manager = LoginManager()
-login_manager.login_view = 'auth.login'
-login_manager.login_message_category = 'info'
-mail = Mail()
+from utils.weather.countries import COUNTRY_API_URL, main as get_countries
 
 
 def create_app(config_name='default'):
@@ -29,7 +28,11 @@ def create_app(config_name='default'):
         db = SqliteDatabase(app.config['DB_NAME'], pragmas={'foreign_keys': 1})
 
     database_proxy.initialize(db)
-    app.config['db'] = db
+    tables = [Profile, Role, User, Post, Country, City, UserCity]
+    db.create_tables(tables)
+
+    if not Country.select().count():
+        get_countries(COUNTRY_API_URL)
 
     csrf = CSRFProtect(app)
     csrf.init_app(app)

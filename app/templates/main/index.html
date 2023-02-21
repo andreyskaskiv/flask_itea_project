@@ -15,17 +15,18 @@
 
 
         <div class="row">
-            <div class="col-md-3"></div>
+            <div class="col-md-5"></div>
 
-            <div class="content-section col-md-6 text-center">
+            <div class="content-section col-md-2 text-center">
                 <h4>Generate test data</h4>
-                <form action="" method="post">
+                <form action="" method="post" >
                     {{ form.csrf_token }}
+                    {{ wtf.form_field(form.qty) }}
                     {{ wtf.form_field(form.submit) }}
                 </form>
             </div>
 
-            <div class="col-md-3"></div>
+            <div class="col-md-5"></div>
         </div>
     </div>
 

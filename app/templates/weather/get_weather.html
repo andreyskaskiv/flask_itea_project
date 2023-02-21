@@ -1,0 +1,64 @@
+{% extends '_base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block page_content %}
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="page-header">
+                <h3>Hello, {{ current_user.username }}</h3>
+            </div>
+            <div class="row">
+
+                <div class="col-5 col-sm-6">
+                    <h3>Show weather info about city:</h3>
+
+                    <form action="" method="post">
+                        {{ form.csrf_token }}
+                        {{ wtf.form_field(form.city_name) }}
+                        {{ wtf.form_field(form.submit) }}
+                    </form>
+                </div>
+
+                <div class="col-4 col-sm-6">
+                    {% if city_weather %}
+                        <div class="row alert-info">
+                            <div class="text-center">
+                                <h4>Weather info about city: {{ city_name.capitalize() }}</h4>
+                                <h4>Country: {{ country.name }}</h4>
+                            </div>
+
+                            <div class="col-8 col-sm-6">
+                                <div class="">
+                                    <b>City:</b> {{ city_name }} <br>
+                                    <b>Temperature:</b> {{ city_weather["temperature"] }}&deg;<br>
+                                    <b>Latitude:</b> {{ city_weather["latitude"] }}<br>
+                                    <b>Longitude:</b> {{ city_weather["longitude"] }}<br>
+                                    <b>Sky:</b> {{ city_weather["sky"] }}<br>
+                                    <b>Wind speed:</b> {{ city_weather["wind_speed"] }} meter/sec<br>
+                                </div>
+                            </div>
+
+                            <div class="col-4 col-sm-6">
+                                <div class="col-2 pull-right">
+                                    <img src="{{ city_weather["icon_url"] }}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <form action="{{ url_for('weather.add_city', city_name=city_name, country_id=country) }}" method="post">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <button type="submit" class="btn btn-primary" id="addCity">Add city</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock page_content %}
