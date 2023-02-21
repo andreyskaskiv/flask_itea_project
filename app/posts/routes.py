@@ -1,6 +1,6 @@
 from flask import render_template, redirect, flash, url_for, request, abort
 from flask_login import current_user, login_required
-from flask_paginate import get_page_args, Pagination, get_page_parameter
+from flask_paginate import Pagination, get_page_parameter
 
 from app.auth.models import Post, User
 from app.posts import posts

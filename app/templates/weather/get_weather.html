@@ -22,6 +22,7 @@
                         {{ wtf.form_field(form.city_name) }}
                         {{ wtf.form_field(form.submit) }}
                     </form>
+
                 </div>
 
                 <div class="col-4 col-sm-6">
@@ -50,15 +51,39 @@
                             </div>
                         </div>
                         <hr>
-                        <form action="{{ url_for('weather.add_city', city_name=city_name, country_id=country) }}" method="post">
+                        <form action="{{ url_for('weather.add_city', city_name=city_name, country_id=country) }}"
+                              method="post">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                             <button type="submit" class="btn btn-primary" id="addCity">Add city</button>
                         </form>
+
                     {% endif %}
                 </div>
             </div>
         </div>
+
+        {% if city_weather %}
+            <div class="col-lg-8">
+                <hr>
+{#                <iframe width="600" height="450" frameborder="0" style="border:0"#}
+{#                        src="https://www.google.com/maps/embed/v1/place?q={{ city_name }}&amp;key="#}
+{#                        allowfullscreen></iframe>#}
+{##}
+{#                            <iframe width="600" height="450" frameborder="0" style="border:0"#}
+{#                        src="https://www.mapquest.com/search/results?query={{ Barcelona }}"#}
+{#                        allowfullscreen></iframe>#}
+{##}
+{#                                        <iframe width="600" height="450" frameborder="0" style="border:0"#}
+{#                        src="https://www.google.com/maps/search/{{ city_name }}"#}
+{#                        allowfullscreen></iframe>#}
+            </div>
+        {% endif %}
     </div>
 
 
 {% endblock page_content %}
+
+
+
+
+

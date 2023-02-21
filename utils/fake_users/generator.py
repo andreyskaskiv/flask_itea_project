@@ -1,5 +1,4 @@
 import random
-import string
 from random import choice
 from typing import NamedTuple
 
@@ -8,6 +7,7 @@ from faker.providers import BaseProvider
 from password_generator import PasswordGenerator
 
 from app.auth.utils import get_avatar
+from utils.fake_users.generator_text import Text
 
 
 class ProfileDTO(NamedTuple):
@@ -19,6 +19,11 @@ class ProfileDTO(NamedTuple):
     age: int
     avatar: str
     role: str
+
+
+class BlogDTO(NamedTuple):
+    title: str
+    post: str
 
 
 class RoleProvider(BaseProvider):
@@ -34,10 +39,16 @@ def generate_password(min_len: int = 10, max_len: int = 15):
     generator.maxlen = max_len
     return generator.generate()
 
+
 def generate_age():
     return random.randint(20, 50)
 
+
 def generate_profiles(qty: int) -> list[ProfileDTO]:
+    """
+    :param qty: amount of generated data
+    :return: ProfileDTO(username, email, password, info, city, age, avatar, role)
+    """
     profiles = []
 
     for _ in range(qty):
@@ -55,28 +66,33 @@ def generate_profiles(qty: int) -> list[ProfileDTO]:
     return profiles
 
 
-def generate_users_posts():
-    """ Generating random posts using 'ascii_lowercase + .?!,' """
-    characters = string.ascii_lowercase + " "
-    punctuation = ".?!, "
+def generate_blogs(qty: int, post_length: int = 20) -> list[BlogDTO]:
+    """
+    @param qty: amount of generated data,
+    @param post_length: post length or number of sentences
+    @return: BlogDTO(title, post)
+    """
+    blogs = []
 
-    post = []
-    post_length = random.randint(20, 50)
-    while len(post) < post_length:
-        sentence_length = random.randint(10, 30)
-        sentence = ''.join(random.choice(characters) for _ in range(sentence_length)).capitalize()
-        sentence += random.choice(punctuation)
-        post.append(sentence)
-    blog_post = ' '.join(post)
+    for _ in range(qty):
+        title = text.title()
+        post = text.text(post_length)
+        blogs.append(
+            BlogDTO(title, post))
 
-    return blog_post
+    return blogs
 
 
 fake = Faker()
 fake.add_provider(RoleProvider)
+text = Text()
 
 # print(fake.profile())
 # print(generate_profiles(2))
 
-
 # print(generate_age())
+
+
+# print(dir(text))
+# print(text.title())
+# print(text.text())

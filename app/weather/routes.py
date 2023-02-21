@@ -95,3 +95,25 @@ def delete_cities():
         city.delete_instance()
     flash(message, 'info')
     return redirect(url_for('weather.show_user_cities'))
+
+
+@weather.route('/add/city/<string:city_name>', methods=['GET', 'POST'])
+@login_required
+def show_city(city_name):
+    """Show user city information"""
+
+    api_key = current_app.config['WEATHER_API_KEY']
+    city_weather = get_weather(city_name, api_key)
+
+    if 'message' in city_weather:
+        flash(city_weather['message'], 'danger')
+        return redirect(url_for('weather.index'))
+
+    country = Country.select().where(Country.code == city_weather['country']).first()
+
+    return render_template('weather/show_city.html',
+                           title='Show user cities',
+                           city_name=city_name,
+                           city_weather=city_weather,
+                           country=country)
+

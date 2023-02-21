@@ -31,7 +31,13 @@
                             <input type="checkbox" name="selectors" class="checkbox" value="{{ city_user.city_id }}">
                         </td>
                         <td>{{ loop.index }}</td>
-                        <td>{{ city_user.city.name }}</td>
+
+                        <td>
+                            <a href="{{ url_for('weather.show_city', city_name=city_user.city.name) }}">
+                                {{ city_user.city.name }}
+                            </a>
+                        </td>
+
                         <td>{{ city_user.city.country.name }}</td>
                         <td>{{ city_user.city.country.code }}</td>
 

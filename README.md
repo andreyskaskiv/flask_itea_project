@@ -53,7 +53,10 @@ Examples:
 
 ![admin_page.png](docs%2Fadmin_page.png)
 
-![show_user_cities_monitoring.png](docs%2Fshow_user_cities_monitoring.png)
+![add_city.png](docs%2Fadd_city.png)
+
+![user_cities_weather.png](docs%2Fuser_cities_weather.png)
+
 
 -------------------------------
 ---
