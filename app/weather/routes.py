@@ -116,4 +116,3 @@ def show_city(city_name):
                            city_name=city_name,
                            city_weather=city_weather,
                            country=country)
-
