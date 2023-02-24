@@ -5,7 +5,7 @@
 
     <div class="container">
         <button type="button" class="btn btn-primary" id="selectButton" onclick="toggle()">Select all</button>
-        <button type="submit" class="btn btn-danger" form="citiesForm">Delete</button>
+        <button type="submit" class="btn btn-danger" form="citiesForm" id="selectButtonDelete">Delete</button>
         <hr>
 
         <form action="{{ url_for('weather.delete_cities') }}" method="post" id="citiesForm">

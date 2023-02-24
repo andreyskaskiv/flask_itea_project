@@ -9,7 +9,7 @@ class CityForm(FlaskForm):
                                         Regexp('[a-zA-Z]', 0, 'City name must have only letters')],
                             render_kw={'placeholder': 'Enter city'})
     submit = SubmitField('Show',
-                         render_kw={'class': 'btn btn-success'})
+                         render_kw={'class': 'btn btn-success', 'id': "Show"})
 
     # def validate_city_name(self, city_name):
     #     """validate_ 'city_name' must match with city_name!!! """

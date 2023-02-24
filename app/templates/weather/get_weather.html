@@ -20,7 +20,7 @@
                     <form action="" method="post">
                         {{ form.csrf_token }}
                         {{ wtf.form_field(form.city_name) }}
-                        {{ wtf.form_field(form.submit) }}
+                        {{ form.submit }}
                     </form>
 
                 </div>
@@ -63,8 +63,8 @@
                 </div>
             </div>
         </div>
-        <hr>
         <div class="col-md-5">
+            <hr>
             <div class="gmap_canvas">
                 <iframe width="650" height="650" id="gmap_canvas"
                         src="https://maps.google.com/maps?q={{ city_name }}&t=&z=9&ie=UTF8&iwloc=&output=embed">

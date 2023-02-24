@@ -34,8 +34,8 @@
                         <span class="caret"></span></a>
 
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ url_for('weather.index') }}">Search city</a></li>
-                        <li><a href="{{ url_for('weather.show_user_cities') }}">Monitor weather</a></li>
+                        <li><a href="{{ url_for('weather.index') }}" id="search_city">Search city</a></li>
+                        <li><a href="{{ url_for('weather.show_user_cities') }}" id="monitor_weather">Monitor weather</a></li>
                         <li class="divider"></li>
                         <li><a href="#">None</a></li>
                         <li><a href="#">None</a></li>
@@ -61,14 +61,14 @@
                     {#<span id="sign_up_menu_icon_color" class="glyphicon glyphicon-user"></span> Account</a></li>#}
 
                     <li><a href="{{ url_for('auth.logout') }}">
-                        <span id="login_menu_icon_color" class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                        <span id="logout_menu_icon_color" class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 
                 {% else %}
                     <li><a href="{{ url_for('auth.register') }}">
                         <span id="sign_up_menu_icon_color" class="glyphicon glyphicon-user"></span> Register</a></li>
 
                     <li><a href="{{ url_for('auth.login') }}">
-                        <span id="login_menu_icon_color" class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <span id="login_menu_icon_color" class="glyphicon glyphicon-log-in" ></span> Login</a></li>
                 {% endif %}
 
             </ul>
