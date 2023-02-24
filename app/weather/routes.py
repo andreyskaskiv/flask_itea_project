@@ -27,6 +27,9 @@ def index():
             return redirect(url_for('weather.index'))
 
         country = Country.select().where(Country.code == city_weather['country']).first()
+        if not country:
+            flash('Country not found')
+            return redirect('weather.index')
 
     return render_template('weather/get_weather.html',
                            title='Get city',
@@ -36,17 +39,17 @@ def index():
                            country=country)
 
 
-@weather.route('/add/city/<string:city_name>, <string:country_id>', methods=['POST'])
+@weather.route('/city/add', methods=['POST'])
 @login_required
-def add_city(city_name, country_id):
-    city_name = city_name.capitalize()
+def add_city():
+    city_name = request.form.get('city').capitalize()
 
     city = City.select().where(City.name == city_name).first()
     if not city:
+        country = request.form.get('country')
         city = City(
             name=city_name,
-            country=country_id
-        )
+            country=country)
         city.save()
 
     city_user = UserCity.select().where(UserCity.city == city).first()

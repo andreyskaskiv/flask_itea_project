@@ -55,15 +55,16 @@
                         <form action="{{ url_for('weather.add_city', city_name=city_name, country_id=country) }}"
                               method="post">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <input type="hidden" name="city" value="{{ city_name }}">
+                            <input type="hidden" name="country" value="{{ country }}">
                             <button type="submit" class="btn btn-primary" id="addCity">Add city</button>
                         </form>
-
                     {% endif %}
                 </div>
             </div>
         </div>
+        <hr>
         <div class="col-md-5">
-            <hr>
             <div class="gmap_canvas">
                 <iframe width="650" height="650" id="gmap_canvas"
                         src="https://maps.google.com/maps?q={{ city_name }}&t=&z=9&ie=UTF8&iwloc=&output=embed">
