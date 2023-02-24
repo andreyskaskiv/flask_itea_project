@@ -135,7 +135,7 @@ def delete_cities():
     message = 'Deleted: '
     for selector in selectors:
         city = UserCity.get(UserCity.city == int(selector))
-        message += f'{city.city.name} '
+        message += f'{city.city.name}, '
         city.delete_instance()
-    flash(message, 'info')
+    flash(message[:-2], 'info')
     return redirect(url_for('weather.show_user_cities'))
