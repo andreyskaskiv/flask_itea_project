@@ -5,8 +5,8 @@ from app.auth.models import User
 from app.weather import weather
 from app.weather.forms import CityForm
 from app.weather.models import Country, UserCity, City
-from utils.weather.city_weather import main as get_weather
 from utils.ip.get_current_city import main as get_current_city
+from utils.weather.city_weather import main as get_weather
 
 
 @weather.route('/', methods=['GET', 'POST'])
@@ -68,17 +68,57 @@ def add_city():
 @login_required
 def show_user_cities():
     """Show user city information"""
+    user_cities = (
+        UserCity
+        .select(City)
+        .join(User)
+        .switch(UserCity)
+        .join(City)
+        .where(UserCity.user == current_user)
+        .order_by(City.name)
+    )
 
-    username = current_user.username
-    user = User.select().where(User.username == username).first()
-    if not user:
+    country_name = request.args.get('country')
+    if country_name:
+        user_cities = [user_city for user_city in user_cities if user_city.city.country.name == country_name]
+
+    return render_template(
+        'weather/show_user_cities.html',
+        title=f'Cities of {current_user.username}',
+        cities=user_cities)
+
+
+@weather.route('/add/city/<string:city_name>', methods=['GET', 'POST'])
+@login_required
+def show_city_detail(city_name):
+    """Show user city information"""
+
+    api_key = current_app.config['WEATHER_API_KEY']
+    city_name = city_name.capitalize()
+
+    user_city = (
+        UserCity
+        .select(City)
+        .join(User)
+        .where(User.id == current_user.id)
+        .switch(UserCity)
+        .join(City)
+        .where(City.name == city_name).first()
+    )
+
+    if not user_city:
         abort(404)
 
-    cities = UserCity.select().where(UserCity.user == user)
+    city_weather = get_weather(user_city.city.name, api_key)
+    if 'message' in city_weather:
+        flash(city_weather['message'])
+        return redirect(url_for('.index'))
 
-    return render_template('weather/show_user_cities.html',
-                           title='Show user cities',
-                           cities=cities)
+    return render_template(
+        'weather/show_user_city_detail.html',
+        title=f'Weather info about {user_city.city.name}',
+        city_weather=city_weather,
+        country=user_city.city.country)
 
 
 @weather.route('/delete/cities', methods=['POST'])
@@ -99,24 +139,3 @@ def delete_cities():
         city.delete_instance()
     flash(message, 'info')
     return redirect(url_for('weather.show_user_cities'))
-
-
-@weather.route('/add/city/<string:city_name>', methods=['GET', 'POST'])
-@login_required
-def show_city(city_name):
-    """Show user city information"""
-
-    api_key = current_app.config['WEATHER_API_KEY']
-    city_weather = get_weather(city_name, api_key)
-
-    if 'message' in city_weather:
-        flash(city_weather['message'], 'danger')
-        return redirect(url_for('weather.index'))
-
-    country = Country.select().where(Country.code == city_weather['country']).first()
-
-    return render_template('weather/show_city.html',
-                           title='Show user cities',
-                           city_name=city_name,
-                           city_weather=city_weather,
-                           country=country)

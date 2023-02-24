@@ -1,0 +1,20 @@
+<table class="table table-hover table-striped" style="border: 1px solid rgba(0,0,0,0.1);">
+  <thead>
+  <tr>
+    <th scope="col">Field</th>
+    <th scope="col">Value</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for field, value in city_weather.items() %}
+    <tr>
+      <td>{{ field.capitalize() }}</td>
+      {% if field == 'icon_url' %}
+      <td class="bg-info"><img src="{{ value }}" alt="weather condition icon"></td>
+      {% else %}
+      <td>{{ value }}</td>
+      {% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

@@ -57,6 +57,9 @@ Examples:
 
 ![user_cities_weather.png](docs%2Fuser_cities_weather.png)
 
+![user_cities_details.png](docs%2Fuser_cities_details.png)
+
+
 
 -------------------------------
 ---
