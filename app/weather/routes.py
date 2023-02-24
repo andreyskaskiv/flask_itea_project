@@ -6,13 +6,14 @@ from app.weather import weather
 from app.weather.forms import CityForm
 from app.weather.models import Country, UserCity, City
 from utils.weather.city_weather import main as get_weather
+from utils.ip.get_current_city import main as get_current_city
 
 
 @weather.route('/', methods=['GET', 'POST'])
 @login_required
 def index():
     form = CityForm()
-    city_name = None
+    city_name = get_current_city()
     city_weather = None
     country = None
 

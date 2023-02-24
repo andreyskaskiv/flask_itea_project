@@ -10,10 +10,10 @@
 
         <form action="{{ url_for('weather.delete_cities') }}" method="post" id="userForm">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <table class="table table-hover table-striped" id="userTable">
+            <table class="table table-hover table-striped" id="userTable" >
 
                 <thead>
-                <tr>
+                <tr >
                     <th class="col">Select</th>
                     <th>#</th>
                     <th>City</th>
@@ -41,11 +41,9 @@
                         <td>{{ city_user.city.country.name }}</td>
                         <td>{{ city_user.city.country.code }}</td>
 
-                        <td>
-                            <img src="{{ city_user.city.country.flag }}" width="25" height="20">
+                        <td class="" style="background: rgba(0,0,0,0.05);">
+                            <img src="{{ city_user.city.country.flag }}" width="50" height="40">
                         </td>
-
-
                     </tr>
                 {% endfor %}
                 </tbody>
