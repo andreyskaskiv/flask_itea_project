@@ -1,6 +1,7 @@
 import datetime
 import json
 import random
+import time
 import unittest
 
 from selenium import webdriver
@@ -81,9 +82,11 @@ class TestGenerateDB(unittest.TestCase):
             self.browser.find_element(By.XPATH, '//input[@id="city_name"]').send_keys(city)
             self.browser.implicitly_wait(1)
             self.browser.find_element(By.XPATH, '//input[@id="Show"]').click()
-            self.browser.implicitly_wait(1)
+            time.sleep(3)
+            self.create_screenshot(self._testMethodName)
             self.browser.find_element(By.XPATH, '//button[@id="addCity"]').click()
             self.browser.implicitly_wait(1)
+            self.create_screenshot(self._testMethodName)
 
         self.browser.find_element(By.XPATH, '//a[@class="dropdown-toggle"]').click()
         self.browser.find_element(By.XPATH, '//a[@id="monitor_weather"]').click()
@@ -101,3 +104,28 @@ class TestGenerateDB(unittest.TestCase):
         self.browser.implicitly_wait(1)
         self.create_screenshot(self._testMethodName)
         self.assertIn(f'Deleted: {delete_city_name}', alert_text)
+
+    def test_ag_blog_title(self):
+        """Blog page"""
+        blog_url = 'http://127.0.0.1:5000/posts/'
+        self.browser.get(blog_url)
+        self.create_screenshot(self._testMethodName)
+        self.assertEqual(self.browser.title, 'Blog')
+
+    def test_ah_blog_user_post(self):
+        """User blog page"""
+
+        user_name_post = self.browser.find_element(By.XPATH,
+                                                   '//*[@id="content"]/div/div/div/div/table/tbody/tr[1]/td/div/div/a').text
+        self.browser.find_element(By.XPATH, '//*[@id="content"]/div/div/div/div/table/tbody/tr[1]/td/div/div/a').click()
+
+        self.assertEqual(self.browser.title, 'Title author')
+
+        user_name_posts = self.browser.find_element(By.XPATH,
+                                                   '//*[@id="content"]/div/div/article/div/div/a').text
+        self.create_screenshot(self._testMethodName)
+        self.assertIn(user_name_post.split(',')[0], user_name_posts.split(',')[0])
+
+
+
+

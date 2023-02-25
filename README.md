@@ -59,7 +59,12 @@ Examples:
 
 ![user_cities_details.png](docs%2Fuser_cities_details.png)
 
+-------------------------------
+---
 
+### Selenium test:
+
+![tests_integration_animation.gif](docs%2Ftests_integration_animation.gif)
 
 -------------------------------
 ---

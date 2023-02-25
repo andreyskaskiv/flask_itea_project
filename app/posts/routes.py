@@ -15,7 +15,7 @@ def blog():
     pagination = Pagination(page=page, per_page=per_page, total=total, record_name='users')
     posts = Post.select().paginate(page, per_page).order_by(Post.date_posted.desc())
 
-    title = "Home"
+    title = "Blog"
     return render_template('posts/blog.html',
                            posts=posts,
                            title=title,
@@ -118,7 +118,7 @@ def user_posts(username):
              .order_by(Post.date_posted.desc()))
 
     return render_template('posts/user_posts.html',
-                           title="title author",
+                           title="Title author",
                            user=user,
                            posts=posts,
                            pagination=pagination)
