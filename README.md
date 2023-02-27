@@ -18,6 +18,7 @@
 13. [ ] Api - &#10060;
 14. [ ] Weather app - &#10060; / &#9989;
 15. [ ] Data generation refactoring - &#10060;
+16. [ ] Integration testing - &#9989;
 
 
 -------------------------------
