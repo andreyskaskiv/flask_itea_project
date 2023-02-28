@@ -1,13 +1,14 @@
 import datetime
 
+import jwt
 from flask import current_app
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from jwt.exceptions import ExpiredSignatureError, DecodeError
 from peewee import CharField, DateTimeField, ForeignKeyField, TextField, IntegerField
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.base_model import BaseModel
-
 
 
 class Role(BaseModel):
@@ -58,6 +59,30 @@ class User(BaseModel, UserMixin):
         if self.role.name == 'admin':
             return True
         return False
+
+    def generate_auth_token(self, expiration=3600):
+        """ Creating a token for the user, by default, ending after 3600s """
+        token = jwt.encode(
+            {
+                'id': self.id,
+                'exp': datetime.datetime.now().timestamp() + datetime.timedelta(seconds=expiration).seconds
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm='HS256')
+        return token
+
+    @staticmethod
+    def verify_auth_token(token):
+        """ Verifying the authenticity of our token """
+        try:
+            token_data = jwt.decode(
+                token,
+                current_app.config['SECRET_KEY'],
+                algorithms=['HS256']
+            )
+        except (ExpiredSignatureError, DecodeError):
+            return None
+        return User.select().where(User.id == int(token_data['id'])).first()
 
 
 class Post(BaseModel):

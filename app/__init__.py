@@ -49,11 +49,15 @@ def create_app(config_name='default'):
     from app.posts import posts
     from app.admin import admin
     from app.weather import weather
+    from app.api import api
+
+    csrf.exempt(api)
 
     app.register_blueprint(main)
     app.register_blueprint(auth)
     app.register_blueprint(posts)
     app.register_blueprint(admin)
     app.register_blueprint(weather)
+    app.register_blueprint(api)
 
     return app

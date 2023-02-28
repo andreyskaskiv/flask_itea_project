@@ -17,3 +17,9 @@ def main():
     ip = get_ip()
     geo_data = get_geo_data(ip)
     return geo_data['city']
+
+
+#
+# ip = get_ip()
+# print(ip)
+# print(get_geo_data(ip))
