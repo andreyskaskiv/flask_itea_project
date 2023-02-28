@@ -21,7 +21,7 @@ This API uses `POST` request to communicate and HTTP [response codes](https://en
 ```
 http://127.0.0.1:5000/api/v1
 ```
-### 1. The base endpoint http://127.0.0.1:5000/api/v1 can be used to access the following API endpoints:
+### The base endpoint http://127.0.0.1:5000/api/v1 can be used to access the following API endpoints:
 
 ```
 1.
