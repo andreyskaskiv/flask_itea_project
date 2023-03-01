@@ -96,3 +96,6 @@ text = Text()
 # print(dir(text))
 # print(text.title())
 # print(text.text())
+
+# print(generate_profiles(1))
+

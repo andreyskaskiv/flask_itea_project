@@ -31,6 +31,8 @@ def create_app(config_name='default'):
     tables = [Profile, Role, User, Post, Country, City, UserCity]
     db.create_tables(tables)
 
+    app.config['db'] = db
+
     if not Country.select().count():
         get_countries(COUNTRY_API_URL)
 

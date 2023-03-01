@@ -127,5 +127,7 @@ class TestGenerateDB(unittest.TestCase):
         self.assertIn(user_name_post.split(',')[0], user_name_posts.split(',')[0])
 
 
+if __name__ == '__main__':
+    unittest.main()
 
 

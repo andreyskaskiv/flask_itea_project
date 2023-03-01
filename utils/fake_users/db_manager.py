@@ -71,3 +71,8 @@ def main(qty: int):
     write_to_db(profiles, blogs)
     users_prepared_to_json = prepare_user_credentials(profiles)
     write_user_credentials_to_json(users_prepared_to_json, PATH_TO_CREDENTIALS)
+
+
+# print(generate_profiles(1))
+
+

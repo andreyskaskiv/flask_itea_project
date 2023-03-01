@@ -139,3 +139,9 @@ def reset_token(token):
         return redirect(url_for('auth.login'))
 
     return render_template('auth/reset_token.html', title='Reset Password', form=form)
+
+
+@auth.route('/secret')
+@login_required
+def secret():
+    return 'Only authenticated users are allowed!'

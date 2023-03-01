@@ -19,7 +19,7 @@
 14. [ ] Weather app - &#9989;
 15. [ ] Data generation refactoring - &#10060;
 16. [ ] Integration testing - &#9989;
-17. [ ] Unit testing - &#10060;
+17. [ ] Unit testing - &#10060; / &#9989;
 
 
 -------------------------------

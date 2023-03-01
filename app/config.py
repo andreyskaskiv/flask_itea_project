@@ -27,6 +27,9 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    WTF_CSRF_ENABLED = True
+    WTF_CSRF_SECRET_KEY = os.urandom(32)
+    UPLOAD_FOLDER_PROFILE = ''
 
 
 config = {
