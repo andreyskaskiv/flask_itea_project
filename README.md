@@ -12,14 +12,14 @@
 6. [ ] User account profile - &#9989;
 7. [ ] Posts - &#9989;
 8. [ ] Pagination users - &#9989;, pagination posts - &#9989;, pagination user_posts - &#9989;
-9. [ ]  Password reset Email - &#10060; / &#9989; _Look at the end of the document_ 	&#8659;
+9. [ ]  Password reset Email - &#10060; / &#9989; <a href="#Email"> _Look at the end of the document_ </a> &#8659;
 10. [ ] Error handlers - &#9989;
 11.  [ ] Deleting any post with admin rights - &#10060;
 12. [ ] Generation of users and posts - &#9989;
 13. [ ] Api - &#9989;, examples of requests and responses in the <a href="API.md">API.md</a> file
 14. [ ] Weather app - &#9989;
 15. [ ] Data generation refactoring - &#9989;
-16. [ ] Integration testing - &#9989;
+16. [ ] <a href="#Integration_testing"> Integration testing </a> - &#9989;
 17. [ ] Unit testing - &#10060; / &#9989;
 
 
@@ -68,6 +68,7 @@ Examples:
 ---
 
 ### Selenium test:
+<a name="Integration_testing"></a>
 
 ![tests_integration_animation.gif](docs%2Ftests_integration_animation.gif)
 
@@ -76,6 +77,7 @@ Examples:
 -------------------------------
 ---
 ## Password recovery error
+<a name="Email"></a>
 
 ![error email.png](docs%2Ferror%20email.png)
 
