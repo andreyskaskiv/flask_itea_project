@@ -16,7 +16,7 @@
 10. [ ] Error handlers - &#9989;
 11.  [ ] Deleting any post with admin rights - &#10060;
 12. [ ] Generation of users and posts - &#9989;
-13. [ ] Api - &#9989;, examples of requests and responses in the `API.md` file
+13. [ ] Api - &#9989;, examples of requests and responses in the <a href="API.md">API.md</a> file
 14. [ ] Weather app - &#9989;
 15. [ ] Data generation refactoring - &#9989;
 16. [ ] Integration testing - &#9989;
