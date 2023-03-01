@@ -17,7 +17,7 @@
 12. [ ] Generation of users and posts - &#9989;
 13. [ ] Api - &#9989;, examples of requests and responses in the `API.md` file
 14. [ ] Weather app - &#9989;
-15. [ ] Data generation refactoring - &#10060;
+15. [ ] Data generation refactoring - &#9989;
 16. [ ] Integration testing - &#9989;
 17. [ ] Unit testing - &#10060; / &#9989;
 
