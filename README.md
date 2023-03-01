@@ -2,6 +2,7 @@
 
 ### What is implemented in this application:
 
+<a name="top"></a>
 
 1. [ ] Minimal templates - &#9989;
 2. [ ] Blueprints, package structure - &#9989;
@@ -21,6 +22,8 @@
 16. [ ] Integration testing - &#9989;
 17. [ ] Unit testing - &#10060; / &#9989;
 
+
+[произвольный регистронезависимый текст]: https://www.mozilla.org
 
 -------------------------------
 ---
@@ -75,3 +78,6 @@ Examples:
 ## Password recovery error
 
 ![error email.png](docs%2Ferror%20email.png)
+
+
+<a href="#top">UP</a>
